@@ -65,6 +65,10 @@ contract Crowdfunding {
         return raisedValue;
     }
 
+    function getTarget() public view returns (uint256) {
+        return value;
+    }
+
     function isOwner() public view returns (bool) {
         if (msg.sender == owner) {
             return true;

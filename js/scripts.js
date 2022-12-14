@@ -1,5 +1,5 @@
 // ENDEREÇO EHTEREUM DO CONTRATO
-var contractAddress = "0xAC11a76cadE844314C5765698E10E9772c1e9565";
+var contractAddress = "0x6727b859F3728516fa6dd4F7b4fBA976F244Cd42";
 
 // Inicializa o objeto DApp
 document.addEventListener("DOMContentLoaded", onDocumentLoad);
@@ -66,6 +66,10 @@ function verValorArrecadado() {
   return DApp.contracts.Crowdfunding.methods.getRaisedFunds().call();
 }
 
+function verTarget() {
+  return DApp.contracts.Crowdfunding.methods.getTarget().call();
+}
+
 function isOwner() {
   return DApp.contracts.Crowdfunding.methods.isOwner().call({ from: DApp.account });
 }
@@ -110,10 +114,9 @@ function atualizaInterface() {
     document.getElementById("deadline").innerHTML = result + " Dias";
   });
 
-  let walletTarget = document.getElementById("walletTarget").value;
-  let words = walletTarget.split(",")
-  let targetString = words[1];
-  document.getElementById("meta").innerHTML = targetString;
+  verTarget().then((result) => {
+    document.getElementById("meta").innerHTML = result;
+  });
 
   document.getElementById("btnWithdraw").style.display = "none";
   isOwner().then((result) => {
